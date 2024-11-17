@@ -24,8 +24,9 @@ html, body{
     align-items: center;
     border: 0;
     padding: 15px; 
+    padding-top: 0px;
     border-radius: 8px;
-    height: 50px;
+    height: 80px;
     font-size: 20px;
     font-family: 'Rubik', sans-serif;
     margin: 10px 0;
@@ -105,6 +106,22 @@ button{
     width: 50px;
 }
 
+.indicators{
+    position: relative;
+    top: -7px;
+}
+
+.indicators button{
+    margin-top: 0px;
+    border: solid;
+    background-color: transparent;
+    border-width: 1px;
+    border-radius: 4px;
+    color: #432000;
+    border-color: #432000;
+    font-size: 7px; 
+}
+
 #SHIFT {
     color: #ff0000;
     background-color: #e7d318;
@@ -117,4 +134,12 @@ button{
     outline: solid;
     outline-width: 1px;
     outline-color: rgb(146, 145, 145);
+}
+
+
+#deg{
+    color: #432000;
+    border-color: #432000;
+    font-size: 7px;
+    margin-left: 130px; 
 }

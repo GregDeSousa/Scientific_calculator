@@ -1,10 +1,12 @@
 let preAns = ''
+let mode = 'D'
 
+window.onload() = function(){
+    document.getElementById('')
+}
 
 function Calculate(expression){
-    //add trig and math functions here
 
-    
     let terms = tokenize(expression)
     let postFix = BODMAS(terms)
     let awnser = evaluateExpression(postFix)
@@ -14,13 +16,14 @@ function Calculate(expression){
 }
 
 function tokenize(expression){
-    return expression.match(/(\d+(\.\d+)?|[+\-*/^()×÷])/g);
+    return expression.match(/(\d+(\.\d+)?|[+\-*/^()×÷]|\b(sin|cos|tan|log|√)\b)/g);
 }
 
 function BODMAS(terms){// uses shuntingyard algorithm
-    const precedence = { '+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 };
+    const precedence = { '+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5};
     const stack = [];
     const values = [];
+    console.log(terms)
 
     // add edge cases for no closing or opening brackets---- invalid expressions
 
@@ -54,7 +57,7 @@ function BODMAS(terms){// uses shuntingyard algorithm
     while (stack.length) {// remainder of operators are added to the values array
         values.push(stack.pop());
     }
-
+    console.log(values)
     return values;
 }
 
@@ -62,10 +65,13 @@ function evaluateExpression(expression){
     let calculations = []
     let a = ''
     let b = ''
-     
+
     expression.forEach(
     term =>{
-    if (isNaN(term)){
+    if (term=='sin' || term=='cos' || term =='tan' || term=='log'){
+        a = calculations.pop()
+        b = ''
+    }else if(isNaN(term)){
         b = calculations.pop()
         a = calculations.pop()
     }else{
@@ -93,6 +99,18 @@ function evaluateExpression(expression){
         case '^':
             calculations.push(Math.pow(a,b))
             break;
+        case 'sin':
+            calculations.push(Math.sin(a))
+            break;
+        case 'cos':
+            calculations.push(Math.cos(a))
+            break;
+        case 'tan':
+            calculations.push(Math.tan(a))
+            break;
+        case 'log':
+            calculations.push(Math.log10(a))
+            break;
           }
 
     }
@@ -101,5 +119,6 @@ function evaluateExpression(expression){
     
     return calculations.pop()
 }
+
 
  
