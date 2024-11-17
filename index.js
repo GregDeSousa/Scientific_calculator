@@ -1,9 +1,10 @@
 let preAns = ''
-let mode = 'D'
+let mode = 2
+const modes = {'Deg':1, 'Rad':2,'Grad':3}
 
-window.onload() = function(){
-    document.getElementById('')
-}
+window.onload = function() {
+        loadDRG();
+};
 
 function Calculate(expression){
 
@@ -13,6 +14,48 @@ function Calculate(expression){
     preAns = awnser
 
     return awnser
+}
+
+function indicatorON(id){
+    let indicator = document.getElementById(id)
+    indicator.style.backgroundColor = '#432000'
+    indicator.style.borderColor = 'white'
+    indicator.style.color = 'white'
+}
+
+function indicatorOFF(id){
+    let indicator = document.getElementById(id)
+    indicator.style.backgroundColor = 'transparent'
+    indicator.style.borderColor = '#432000'
+    indicator.style.color = '#432000'
+}
+
+function loadDRG(){
+    switch(mode){
+        case 1:
+            indicatorON('deg')
+            indicatorOFF('rad')
+            indicatorOFF('grad')
+            break;
+        case 2:
+            indicatorOFF('deg')
+            indicatorON('rad')
+            indicatorOFF('grad')
+            break;
+        case 3:
+            indicatorOFF('deg')
+            indicatorOFF('rad')
+            indicatorON('grad')
+            break;
+    }
+}
+
+function toggleDRG(){
+    mode+=1
+    if (mode>=4){
+        mode=1
+    }
+    loadDRG();
 }
 
 function tokenize(expression){
@@ -100,12 +143,16 @@ function evaluateExpression(expression){
             calculations.push(Math.pow(a,b))
             break;
         case 'sin':
+            a = convertValueDRG(a)
             calculations.push(Math.sin(a))
             break;
         case 'cos':
+            a = convertValueDRG(a)
+            console.log(a)/////Fix math.cos
             calculations.push(Math.cos(a))
             break;
         case 'tan':
+            a = convertValueDRG(a)
             calculations.push(Math.tan(a))
             break;
         case 'log':
@@ -118,6 +165,22 @@ function evaluateExpression(expression){
     )
     
     return calculations.pop()
+}
+
+function convertValueDRG(value){
+    switch (mode) {
+        case 1: // Degrees to radians
+            value = value * (Math.PI / 180);
+            break;
+        case 2: // Gradians to radians
+            value = value * (Math.PI / 200);
+            break;
+        case 3: // Radians (no conversion needed)
+            break;
+        default:
+            throw new Error("Invalid mode");
+    }
+    return value
 }
 
 
