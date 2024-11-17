@@ -9,7 +9,7 @@ html, body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 400px;
+    max-width: 320px;
     margin: 50px auto;
 }
 .Calculator{
@@ -18,9 +18,10 @@ html, body{
     border-radius: 10px;
 }
 
-input {
-    color: #432000;
+.disp-ans {
     background-color: #f4f5f6;
+    justify-content: center;
+    align-items: center;
     border: 0;
     padding: 15px;
     border-radius: 8px;
@@ -28,23 +29,92 @@ input {
     font-size: 20px;
     font-family: 'Rubik', sans-serif;
     margin: 10px 0;
+    width: 89%;
+}
+
+input{
+    border: 0;
+    color: #432000;
+    height: 25px;
+    font-size: 29px;
+    font-family: 'DS-Digital', sans-serif;
+    width: 90%;
+    background-color: #f4f5f6;
+}
+#awnser{
+    text-align: right;
 }
 
 button{
     border-radius: 8px;
 }
 
+.ArithmeticButtons{
+    justify-content: center;
+    margin-top: 19px;
+    width: 100%;
+}
+
 .FunctionButtons{
     justify-content: center;
+    padding-left: 7px;
 }
 .FunctionButtons button{
-
-    margin-top: 5px;
-    margin-bottom: 5px;
+    border: 0;
+    color: #e9caa7;
+    box-shadow: -3px -3px 15px rgba(255, 255, 255, 0.08), 5px 5px 15px rgba(0, 0, 0, 0.3);
+    background: transparent;
+    width: 40px;
+    height: 20px;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 10px;
 }
 
+
 .ArithmeticButtons button{
+    border: 0;
+    outline: 0;
+    box-shadow: -4px -4px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.2);
+    background: transparent;
+    color:aquamarine;
+    cursor: pointer;
     font-size: 15px;
     height: 28px;
     width: 45.5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+
+.FunctionButtons button:active{
+    transform: scale(0.95);
+    box-shadow: none;
+    background-color:  #585858;
+}
+
+.ArithmeticButtons button:active{
+    transform: scale(0.95);
+    box-shadow: none;
+    background-color:  #585858;
+}
+
+.shiftAlpha button{
+    width: 50px;
+}
+
+#SHIFT {
+    color: #ff0000;
+    background-color: #e7d318;
+}
+#ALPHA {
+    color: #e7d318;
+    background-color: #e2221d;
+}
+#DRG{
+    outline: solid;
+    outline-width: 1px;
+    outline-color: rgb(146, 145, 145);
 }

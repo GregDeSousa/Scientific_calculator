@@ -1,6 +1,16 @@
+let preAns = ''
 
-function Calculate(){
+
+function Calculate(expression){
     //add trig and math functions here
+
+    
+    let terms = tokenize(expression)
+    let postFix = BODMAS(terms)
+    let awnser = evaluateExpression(postFix)
+    preAns = awnser
+
+    return awnser
 }
 
 function tokenize(expression){
@@ -49,41 +59,47 @@ function BODMAS(terms){// uses shuntingyard algorithm
 }
 
 function evaluateExpression(expression){
+    let calculations = []
     let a = ''
     let b = ''
      
     expression.forEach(
     term =>{
-    switch(expression) {
+    if (isNaN(term)){
+        b = calculations.pop()
+        a = calculations.pop()
+    }else{
+        calculations.push(parseFloat(term))
+    }
+    switch(term) {
         case '+':
-        
+            calculations.push(a + b)
+            break;
         case '-':
-
-              break;
+            calculations.push(a - b)
+            break;
         case '*':
-
-              break;
+            calculations.push(a * b)
+            break;
         case '/':
-
-              break;
+            calculations.push(a / b)
+            break;
         case '×':
-
-              break;
+            calculations.push(a * b)
+            break;
         case '÷':
-
-              break;
-        default:
-            if (a!=''){
-                b=expression
-            }else if(a){
-                a=expression
-            }else{
-            }
+            calculations.push(a / b)
+            break;
+        case '^':
+            calculations.push(Math.pow(a,b))
+            break;
           }
 
     }
 
     )
+    
+    return calculations.pop()
 }
 
  
