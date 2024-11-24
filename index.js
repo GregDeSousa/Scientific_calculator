@@ -1,10 +1,36 @@
-let preAns = ''
+let preAns = 0
 let mode = 2
 const modes = {'Deg':1, 'Rad':2,'Grad':3}
+const textArea = document.getElementById("display");
+const moveLeftButton = document.getElementById("moveLeftButton");
+const moveRightButton = document.getElementById("moveRightButton");
 
 window.onload = function() {
         loadDRG();
 };
+
+
+moveLeftButton.addEventListener("click", () => {
+    moveCursor(-1);
+});
+
+moveRightButton.addEventListener("click", () => {
+    moveCursor(1);
+});
+
+function moveCursor(direction) {
+    // Get the current cursor position
+    let currentPosition = textArea.selectionStart;
+
+    // Calculate the new cursor position
+    let newPosition = currentPosition + direction;
+
+    // Make sure the new position is within the bounds
+    if (newPosition >= 0 && newPosition <= textArea.value.length) {
+        // Set the new cursor position
+        textArea.setSelectionRange(newPosition, newPosition);
+    }
+}
 
 function Calculate(expression){
 
@@ -58,23 +84,48 @@ function toggleDRG(){
     loadDRG();
 }
 
-function tokenize(expression){
-    return expression.match(/(\d+(\.\d+)?|[+\-*/^()×÷]|\b(sin|cos|tan|log|√)\b)/g);
+function tokenize(expression) {////////////comment this code and un
+    const tokens = [];
+    const regex = /logbase|[+\-*/^()×÷√]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
+    let match;
+    let lastToken = null;
+
+    while ((match = regex.exec(expression)) !== null) {
+        let token = match[0];
+
+        // Handle unary minus
+        if (token === "-" && (lastToken === null || /[+\-*/^()×÷]/.test(lastToken))) {
+            // If previous token is null or an operator, treat "-" as unary minus
+            match = regex.exec(expression); // Get the next token
+            if (match) {
+                token = `-${match[0]}`; // Combine "-" with the next number
+            } else {
+                throw new Error("Invalid syntax: Standalone '-'");
+            }
+        }
+
+        tokens.push(token);
+        lastToken = token;
+    }
+    console.log(tokens)
+    return tokens;
 }
 
 function BODMAS(terms){// uses shuntingyard algorithm
-    const precedence = { '+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5};
+    const precedence = { '+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5,'logbase':5, 'abs':5};
     const stack = [];
     const values = [];
-    console.log(terms)
+    //console.log(terms)
 
     // add edge cases for no closing or opening brackets---- invalid expressions
 
     terms.forEach(
         term => {
-        if (!isNaN(term)) {// If the term is a value and not undefined, immediatly push it to the values array.
-
-            values.push(term);
+        console.log(term)
+        if (!isNaN(term) || term=="ans") {// If the term is a value and not undefined, immediatly push it to the values array.
+            if(term=="ans"){
+                values.push(preAns);
+            }else{values.push(term);}
 
         } else if (term === '(') {// opening bracket indicates there is a start of a sub-expression that needs to be processed 
 
@@ -100,7 +151,7 @@ function BODMAS(terms){// uses shuntingyard algorithm
     while (stack.length) {// remainder of operators are added to the values array
         values.push(stack.pop());
     }
-    console.log(values)
+    //console.log(values)
     return values;
 }
 
@@ -111,9 +162,10 @@ function evaluateExpression(expression){
 
     expression.forEach(
     term =>{
-    if (term=='sin' || term=='cos' || term =='tan' || term=='log'){
+    console.log(term)
+    if (term=='sin' || term=='cos' || term =='tan' || term=='log' || term == "√" || term=="abs" || term=="logbase"){
         a = calculations.pop()
-        b = ''
+        b = term === 'logbase' ? calculations.pop() : null;
     }else if(isNaN(term)){
         b = calculations.pop()
         a = calculations.pop()
@@ -142,13 +194,16 @@ function evaluateExpression(expression){
         case '^':
             calculations.push(Math.pow(a,b))
             break;
+        case "√":
+            calculations.push(Math.sqrt(a))
+            break;
         case 'sin':
             a = convertValueDRG(a)
             calculations.push(Math.sin(a))
             break;
         case 'cos':
             a = convertValueDRG(a)
-            console.log(a)/////Fix math.cos
+            //console.log(a)/////Fix math.cos
             calculations.push(Math.cos(a))
             break;
         case 'tan':
@@ -158,6 +213,12 @@ function evaluateExpression(expression){
         case 'log':
             calculations.push(Math.log10(a))
             break;
+        case 'logbase':
+            calculations.push(Math.log(a) / Math.log(b)); 
+            break;
+        case 'abs':
+            calculations.push(Math.abs(a))
+            break;       
           }
 
     }
@@ -172,16 +233,18 @@ function convertValueDRG(value){
         case 1: // Degrees to radians
             value = value * (Math.PI / 180);
             break;
-        case 2: // Gradians to radians
-            value = value * (Math.PI / 200);
+        case 2: //(no conversion needed)
             break;
-        case 3: // Radians (no conversion needed)
+        case 3: // Gradians to radians 
+            value = value * (Math.PI / 200);
             break;
         default:
             throw new Error("Invalid mode");
     }
     return value
 }
+
+
 
 
  

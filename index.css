@@ -59,6 +59,7 @@ button{
 .FunctionButtons{
     justify-content: center;
     padding-left: 7px;
+    
 }
 .FunctionButtons button{
     border: 0;
@@ -93,13 +94,13 @@ button{
 .FunctionButtons button:active{
     transform: scale(0.95);
     box-shadow: none;
-    background-color:  #585858;
+    background-color:  transparent;
 }
 
 .ArithmeticButtons button:active{
     transform: scale(0.95);
     box-shadow: none;
-    background-color:  #585858;
+    background-color:  transparent;
 }
 
 .shiftAlpha button{
@@ -143,3 +144,29 @@ button{
     font-size: 7px;
     margin-left: 130px; 
 }
+
+#DEL{
+    color: #fff;
+    background-color: lime;
+}
+
+#AC{
+    color: #fff;
+    background-color: lime; 
+}
+
+#equals{
+    background-color: #fff;
+    color: rgb(0, 255, 183);
+}
+
+#button-text-above {
+    margin: 0;
+    color:  #e7d318;
+    padding: 0;
+    position: relative;
+    bottom: 10px;
+    left: 145px;
+    align-items: center;
+    font-size: 10px; /* Text size for the above text */
+  }
