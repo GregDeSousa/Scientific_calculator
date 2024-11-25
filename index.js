@@ -86,7 +86,7 @@ function toggleDRG(){
 
 function tokenize(expression) {////////////comment this code and un
     const tokens = [];
-    const regex = /logbase|[+\-*/^()×÷√]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
+    const regex = /logbase|[+\-*/^()×÷√π]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
     let match;
     let lastToken = null;
 
@@ -94,7 +94,7 @@ function tokenize(expression) {////////////comment this code and un
         let token = match[0];
 
         // Handle unary minus
-        if (token === "-" && (lastToken === null || /[+\-*/^()×÷]/.test(lastToken))) {
+        if (token === "-" && (lastToken === null || /[+\-*/^(×÷]/.test(lastToken))) {
             // If previous token is null or an operator, treat "-" as unary minus
             match = regex.exec(expression); // Get the next token
             if (match) {
@@ -112,7 +112,7 @@ function tokenize(expression) {////////////comment this code and un
 }
 
 function BODMAS(terms){// uses shuntingyard algorithm
-    const precedence = { '+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5,'logbase':5, 'abs':5};
+    const precedence = { 'π':1,'+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5,'logbase':5, 'abs':5};
     const stack = [];
     const values = [];
     //console.log(terms)
@@ -122,17 +122,18 @@ function BODMAS(terms){// uses shuntingyard algorithm
     terms.forEach(
         term => {
         console.log(term)
-        if (!isNaN(term) || term=="ans") {// If the term is a value and not undefined, immediatly push it to the values array.
+        if (!isNaN(term) || term=="ans" ||term =="π") {// If the term is a value and not undefined, immediatly push it to the values array.
             if(term=="ans"){
                 values.push(preAns);
+            }else if(term=="π"){
+                console.log("HAPPPEND");
+                values.push(3.14159);
             }else{values.push(term);}
 
         } else if (term === '(') {// opening bracket indicates there is a start of a sub-expression that needs to be processed 
-
             stack.push(term);
 
         } else if (term === ')') {// when the closing bracket is found 
-
             while (stack.length && stack[stack.length - 1] !== '(') {// process the subexpression untill the opening bracket is found again
                 values.push(stack.pop()); //add the operators to the values array for postfix expression
             }
@@ -151,7 +152,7 @@ function BODMAS(terms){// uses shuntingyard algorithm
     while (stack.length) {// remainder of operators are added to the values array
         values.push(stack.pop());
     }
-    //console.log(values)
+    console.log(values)
     return values;
 }
 
