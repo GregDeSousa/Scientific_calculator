@@ -102,9 +102,12 @@ function tokenize(expression) {
             match = regex.exec(expression); // Get the next token
             if (match) {
                 token = `-${match[0]}`; // Combine "-" with the next number
-            } else {
-                throw new Error("Invalid syntax: Standalone '-'");
             }
+        }
+
+        // Add implicit multiplication where needed
+        if (lastToken && (/[)\dπ]/.test(lastToken) && /[\dπ(]/.test(token))) {
+            tokens.push("*");
         }
 
         tokens.push(token);
