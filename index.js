@@ -94,7 +94,7 @@ function tokenize(expression) {////////////comment this code and un
         let token = match[0];
 
         // Handle unary minus
-        if (token === "-" && (lastToken === null || /[+\-*/^()×÷]/.test(lastToken))) {
+        if (token === "-" && (lastToken === null || /[+\-*/^(×÷]/.test(lastToken))) {
             // If previous token is null or an operator, treat "-" as unary minus
             match = regex.exec(expression); // Get the next token
             if (match) {
