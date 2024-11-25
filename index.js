@@ -86,7 +86,7 @@ function toggleDRG(){
 
 function tokenize(expression) {////////////comment this code and un
     const tokens = [];
-    const regex = /logbase|[+\-*/^()×÷√]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
+    const regex = /logbase|[+\-*/^()×÷√π]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
     let match;
     let lastToken = null;
 
@@ -125,6 +125,8 @@ function BODMAS(terms){// uses shuntingyard algorithm
         if (!isNaN(term) || term=="ans") {// If the term is a value and not undefined, immediatly push it to the values array.
             if(term=="ans"){
                 values.push(preAns);
+            }else if(term=="π"){
+                values.push(3.1415926535);
             }else{values.push(term);}
 
         } else if (term === '(') {// opening bracket indicates there is a start of a sub-expression that needs to be processed 
