@@ -38,6 +38,9 @@ function Calculate(expression){
     let postFix = BODMAS(terms)
     let awnser = evaluateExpression(postFix)
     preAns = awnser
+    
+    console.log(awnser)
+
 
     return awnser
 }
@@ -56,7 +59,7 @@ function indicatorOFF(id){
     indicator.style.color = '#432000'
 }
 
-function loadDRG(){
+function loadDRG(){//chaneg mode degree, radians, gradians
     switch(mode){
         case 1:
             indicatorON('deg')
@@ -76,7 +79,7 @@ function loadDRG(){
     }
 }
 
-function toggleDRG(){
+function toggleDRG(){//toggle modes
     mode+=1
     if (mode>=4){
         mode=1
@@ -84,7 +87,7 @@ function toggleDRG(){
     loadDRG();
 }
 
-function tokenize(expression) {////////////comment this code and un
+function tokenize(expression) {
     const tokens = [];
     const regex = /logbase|[+\-*/^()×÷√π]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
     let match;
@@ -99,9 +102,12 @@ function tokenize(expression) {////////////comment this code and un
             match = regex.exec(expression); // Get the next token
             if (match) {
                 token = `-${match[0]}`; // Combine "-" with the next number
-            } else {
-                throw new Error("Invalid syntax: Standalone '-'");
             }
+        }
+
+        // Add implicit multiplication where needed
+        if (lastToken && (/[)\dπ]/.test(lastToken) && /[\dπ(]/.test(token))) {
+            tokens.push("*");
         }
 
         tokens.push(token);
@@ -115,9 +121,7 @@ function BODMAS(terms){// uses shuntingyard algorithm
     const precedence = { 'π':1,'+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5,'logbase':5, 'abs':5};
     const stack = [];
     const values = [];
-    //console.log(terms)
 
-    // add edge cases for no closing or opening brackets---- invalid expressions
 
     terms.forEach(
         term => {
@@ -173,7 +177,7 @@ function evaluateExpression(expression){
     }else{
         calculations.push(parseFloat(term))
     }
-    switch(term) {
+    switch(term) {// handle different operators
         case '+':
             calculations.push(a + b)
             break;
@@ -204,7 +208,6 @@ function evaluateExpression(expression){
             break;
         case 'cos':
             a = convertValueDRG(a)
-            //console.log(a)/////Fix math.cos
             calculations.push(Math.cos(a))
             break;
         case 'tan':

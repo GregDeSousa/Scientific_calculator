@@ -159,14 +159,3 @@ button{
     background-color: #fff;
     color: rgb(0, 255, 183);
 }
-
-#button-text-above {
-    margin: 0;
-    color:  #e7d318;
-    padding: 0;
-    position: relative;
-    bottom: 10px;
-    left: 145px;
-    align-items: center;
-    font-size: 10px; /* Text size for the above text */
-  }
