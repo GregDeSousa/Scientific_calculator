@@ -31,11 +31,11 @@
                         <button id="ALPHA">ALPHA</button>
                     </div>
                     <div>
-                        <button>∫dx</button>
-                        <button>x⁻¹</button>
-                        <button>←</button>
-                        <button>→</button>
-                        <button>logₓy</button>
+                        <button onclick=" display.value += 'abs&#x28' ">| □ |</button>
+                        <button onclick=" display.value += '^-1' ">x⁻¹</button>
+                        <button id="moveLeftButton">←</button>
+                        <button id="moveRightButton">→</button>
+                        <button  onclick=" display.value += 'logbase&#x28' ">logₓy</button>
                         <button id="DRG" onclick="toggleDRG()">DRG</button>
                     </div>
                     <div>
@@ -47,15 +47,15 @@
                         <button>ln</button>
                     </div>
                     <div>
-                        <button>(-)</button>
-                        <button>∘ ' "</button>
+                        <button onclick=" display.value += '-' ">(-)</button>
+                        <button onclick=" display.value += ',' ">,</button>
                         <button onclick=" display.value += 'tan&#x28' ">tan</button>
                         <button onclick=" display.value += 'sin&#x28' ">sin</button>
                         <button onclick=" display.value += 'cos&#x28' ">cos</button>
                         <button onclick=" display.value += 'tan&#x28' ">tan</button>
                     </div>
                     <div>
-                        <button>RCL</button>
+                        <button>π</button>
                         <button>ENG</button>
                         <button onclick=" display.value += '&#x28' ">&#x28</button>
                         <button onclick=" display.value += '&#x29' ">&#x29</button>
@@ -68,8 +68,8 @@
                         <button onclick=" display.value += '7' ">7</button>
                         <button onclick=" display.value += '8' ">8</button>
                         <button onclick=" display.value += '9' ">9</button>
-                        <button onclick="display.value = display.value.toString().slice(0,-1)">DEL</button>
-                        <button onclick=" display.value = '' ">AC</button>
+                        <button id="DEL" onclick="display.value = display.value.toString().slice(0,-1)">DEL</button>
+                        <button id="AC" onclick=" display.value = ''; awnser.value = ''">AC</button>
                     </div>
                     <div>
                         <button onclick=" display.value += '4' ">4</button>
@@ -88,9 +88,9 @@
                     <div>
                         <button onclick=" display.value += '0' ">0</button>
                         <button onclick=" display.value += '.' ">.</button>
-                        <button onclick=" display.value += '×10ˣ' ">×10ˣ</button>
-                        <button>Ans</button>
-                        <button onclick="awnser.value='= '+Calculate(display.value)">=</button>
+                        <button onclick=" display.value += '×10^&#x28' ">×10ˣ</button>
+                        <button onclick=" display.value += 'ans' ">Ans</button>
+                        <button id="equals" onclick="awnser.value='= '+Calculate(display.value)">=</button>
                     </div>
                 </div>
             </div>
