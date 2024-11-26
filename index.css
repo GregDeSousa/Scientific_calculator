@@ -23,13 +23,13 @@ html, body{
     justify-content: center;
     align-items: center;
     border: 0;
-    padding: 15px; 
-    padding-top: 0px;
+    padding: 5.5%; 
+    padding-top: 0;
     border-radius: 8px;
-    height: 80px;
+    height: 10%;
     font-size: 20px;
     font-family: 'Rubik', sans-serif;
-    margin: 10px 0;
+    margin: 3% 0;
     width: 89%;
 }
 
@@ -66,13 +66,15 @@ button{
     color: #e9caa7;
     box-shadow: -3px -3px 15px rgba(255, 255, 255, 0.08), 5px 5px 15px rgba(0, 0, 0, 0.3);
     background: transparent;
+    max-width: 40px;
+    max-height: 20px;
     width: 40px;
     height: 20px;
     font-size: 11px;
-    margin-top: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-bottom: 10px;
+    margin-top: 3%;
+    margin-left: 0.6%;
+    margin-right: 0.6%; 
+    margin-bottom: 3%;
 }
 
 
@@ -104,6 +106,7 @@ button{
 }
 
 .shiftAlpha button{
+    max-width: 50px;
     width: 50px;
 }
 
