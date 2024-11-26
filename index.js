@@ -89,7 +89,7 @@ function toggleDRG(){//toggle modes
 
 function tokenize(expression) {
     const tokens = [];
-    const regex = /logbase|[+\-*/^()×÷√π]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
+    const regex = /logbase|[+\-*/^()×÷√∛π]|sin|cos|tan|log|abs|ans|\d+(\.\d+)?/g;
     let match;
     let lastToken = null;
 
@@ -118,7 +118,7 @@ function tokenize(expression) {
 }
 
 function BODMAS(terms){// uses shuntingyard algorithm
-    const precedence = { 'π':1,'+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4 ,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5,'logbase':5, 'abs':5};
+    const precedence = { 'π':1,'+': 1, '-': 1, '*': 2, '×': 2, '÷':3 , '/': 3, '^': 4 , '√': 4,'∛':4,'sin': 5 ,'cos': 5 ,'tan': 5,'log': 5,'logbase':5, 'abs':5};
     const stack = [];
     const values = [];
 
@@ -168,7 +168,7 @@ function evaluateExpression(expression){
     expression.forEach(
     term =>{
     console.log(term)
-    if (term=='sin' || term=='cos' || term =='tan' || term=='log' || term == "√" || term=="abs" || term=="logbase"){
+    if (term=='sin' || term=='cos' || term =='tan' || term=='log' || term == "√" || term=="abs" || term=="logbase" || term=="∛"){
         a = calculations.pop()
         b = term === 'logbase' ? calculations.pop() : null;
     }else if(isNaN(term)){
@@ -201,6 +201,9 @@ function evaluateExpression(expression){
             break;
         case "√":
             calculations.push(Math.sqrt(a))
+            break;
+        case "∛":
+            calculations.push(Math.cbrt(a))
             break;
         case 'sin':
             a = convertValueDRG(a)
