@@ -2,6 +2,10 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .Container{
@@ -10,9 +14,10 @@ html, body{
     align-items: center;
     justify-content: center;
     max-width: 320px;
-    margin: 50px auto;
+    margin: 0;
 }
 .Calculator{
+    margin: 0;
     background-color: #505250;
     padding: 10px;
     border-radius: 10px;
@@ -68,13 +73,13 @@ button{
     background: transparent;
     max-width: 40px;
     max-height: 20px;
-    width: 40px;
-    height: 20px;
-    font-size: 11px;
-    margin-top: 3%;
+    width: 30vw;
+    height: 12vh;
+    font-size: 70%;
+    margin-top: 4%;
     margin-left: 0.6%;
     margin-right: 0.6%; 
-    margin-bottom: 3%;
+    margin-bottom: 4%;
 }
 
 
@@ -85,12 +90,14 @@ button{
     background: transparent;
     color:aquamarine;
     cursor: pointer;
-    font-size: 15px;
-    height: 28px;
-    width: 45.5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 15px;
+    font-size: 90%;
+    max-height:28px;
+    max-width: 45.5px;
+    height: 80vw;
+    width: 18%;
+    margin-left: 1.8%;
+    margin-right: 1.8%;
+    margin-bottom: 5.4%;
 }
 
 .FunctionButtons button:active{
@@ -111,8 +118,10 @@ button{
 }
 
 .indicators{
+    padding: 1;
+    display: flex;
     position: relative;
-    top: -7px;
+    top:1px
 }
 
 .indicators button{
@@ -123,7 +132,7 @@ button{
     border-radius: 4px;
     color: #432000;
     border-color: #432000;
-    font-size: 7px; 
+    font-size: 7px;
 }
 
 #SHIFT {
@@ -145,7 +154,7 @@ button{
     color: #432000;
     border-color: #432000;
     font-size: 7px;
-    margin-left: 130px; 
+    margin-left: 20%;
 }
 
 #DEL{
