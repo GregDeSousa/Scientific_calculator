@@ -106,7 +106,7 @@ function tokenize(expression) {
         }
 
         // Add implicit multiplication where needed
-        if (lastToken && (/[)\dπ]/.test(lastToken) && /[\dπ(]/.test(token))) {
+        if (lastToken && (/[)\dπ]/.test(lastToken) && /[\dπ(|sin|cos|tan|log|abs|]/.test(token))) {
             tokens.push("*");
         }
 
